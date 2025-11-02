@@ -1,0 +1,1 @@
+namespace CarvaoControl.Domain.Interfaces;
