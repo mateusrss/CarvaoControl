@@ -1,0 +1,13 @@
+# Pastas de build
+bin/
+obj/
+
+# Configurações do Visual Studio
+*.user
+*.suo
+*.vs
+
+# Outros arquivos gerados
+*.dll
+*.pdb
+*.cache
