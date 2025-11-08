@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarvaoControl.Application\CarvaoControl.Application.csproj" />
+    <ProjectReference Include="..\CarvaoControl.Domain\CarvaoControl.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
