@@ -1,13 +1,16 @@
-# Pastas de build
+# Build Folders
 bin/
 obj/
+publish/
 
-# Configurações do Visual Studio
+# Executáveis e pacotes
+*.exe
+*.dll
+*.zip
+*.bak
+
+# Usuários, IDE, VS
 *.user
 *.suo
-*.vs
-
-# Outros arquivos gerados
-*.dll
-*.pdb
-*.cache
+*.vs/
+.vscode/

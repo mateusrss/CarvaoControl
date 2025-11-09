@@ -1,6 +1,6 @@
 [Setup]
 AppName=Carvão Control
-AppVersion=1.0.0
+AppVersion=1.0.1
 AppPublisher=Chama Distribuidora
 AppPublisherURL=https://www.chamadistribuidora.com
 AppSupportURL=https://www.chamadistribuidora.com/support
@@ -8,7 +8,7 @@ AppUpdatesURL=https://www.chamadistribuidora.com/updates
 DefaultDirName={pf}\CarvaoControl
 DefaultGroupName=Carvão Control
 OutputDir=userdocs:Inno Setup Examples Output
-OutputBaseFilename=CarvaoControlSetup
+OutputBaseFilename=CarvaoControlSetup_1.0.1
 Compression=lzma
 SolidCompression=yes
 
@@ -19,8 +19,8 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "bin\Release\net9.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "c:\Users\teste\CarvaoControl\MeuAppWinForms\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Usa apenas a publicação self-contained específica
+Source: "c:\Users\teste\CarvaoControl\MeuAppWinForms\publish\win-x64\self-contained_v1.0.1\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\Carvão Control"; Filename: "{app}\CarvaoControl.exe"

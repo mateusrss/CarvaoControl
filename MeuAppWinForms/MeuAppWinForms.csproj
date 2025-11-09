@@ -11,7 +11,14 @@
 
   <ItemGroup>
     <None Remove="Resources\CarvaoChama.png" />
+    <None Remove="Resources\CarvaoChama.jpg" />
     <Content Include="Resources\CarvaoChama.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CarvaoChama.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AppIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -24,8 +31,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Company>Chama Distribuidora</Company>
     <Product>Carvão Control</Product>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <InformationalVersion>1.0.1+release</InformationalVersion>
     <AssemblyName>CarvaoControl</AssemblyName>
+    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>

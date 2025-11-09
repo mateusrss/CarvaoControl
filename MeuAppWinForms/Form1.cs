@@ -1,10 +1,12 @@
 using System;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CarvaoControl.Application;
 using CarvaoControl.Application.Services;
 using CarvaoControl.Domain.Entities;
+using CarvaoControl.Infrastructure.Services;
 
 namespace MeuAppWinForms
 {
@@ -63,6 +65,11 @@ namespace MeuAppWinForms
                 var resourceName = "MeuAppWinForms.Resources.CarvaoChama.png";
                 using var stream = typeof(Form1).Assembly.GetManifestResourceStream(resourceName);
                 if (stream != null) headerLogo.Image = Image.FromStream(stream);
+                if (headerLogo.Image == null)
+                {
+                    var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "CarvaoChama.png");
+                    if (File.Exists(filePath)) headerLogo.Image = Image.FromFile(filePath);
+                }
             }
             catch { }
             headerPanel.Controls.Add(headerLogo);
@@ -77,6 +84,29 @@ namespace MeuAppWinForms
                 Location = new Point(100, 20)
             };
             headerPanel.Controls.Add(headerTitle);
+
+            // Definir ícone da janela
+            try
+            {
+                // Preferir .ico se existir
+                var icoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "AppIcon.ico");
+                if (File.Exists(icoPath))
+                {
+                    this.Icon = new Icon(icoPath);
+                }
+                else
+                {
+                    // Fallback: converter PNG em ícone em runtime
+                    var pngPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "CarvaoChama.png");
+                    if (File.Exists(pngPath))
+                    {
+                        using var bmp = new Bitmap(pngPath);
+                        var hIcon = bmp.GetHicon();
+                        this.Icon = Icon.FromHandle(hIcon);
+                    }
+                }
+            }
+            catch { }
 
             // Menu Strip (estilizado)
             menuStrip.BackColor = Color.FromArgb(33, 150, 243);
@@ -238,7 +268,8 @@ namespace MeuAppWinForms
                 MessageBox.Show("Não há produtos cadastrados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            var produto = produtos.First();
+            // Garantimos não nulo: já verificado acima que existe pelo menos 1
+            Produto? produto = produtos.FirstOrDefault();
             if (produtos.Count() > 1)
             {
                 using var selectForm = new Form
@@ -284,7 +315,7 @@ namespace MeuAppWinForms
                 MaximizeBox = false,
                 MinimizeBox = false
             };
-            var txtNovoNome = new TextBox { Location = new Point(120, 20), Size = new Size(200, 25), Text = produto.Nome };
+            var txtNovoNome = new TextBox { Location = new Point(120, 20), Size = new Size(200, 25), Text = (produto?.Nome ?? string.Empty) };
             var lblNovoNome = new Label { Text = "Novo Nome:", Location = new Point(10, 25), AutoSize = true };
             var btnOkRename = new Button { Text = "Renomear", DialogResult = DialogResult.OK, Location = new Point(120, 60) };
             var btnCancelRename = new Button { Text = "Cancelar", DialogResult = DialogResult.Cancel, Location = new Point(200, 60) };
@@ -293,7 +324,7 @@ namespace MeuAppWinForms
             renameForm.CancelButton = btnCancelRename;
             if (renameForm.ShowDialog(this) == DialogResult.OK)
             {
-                var novoNome = txtNovoNome.Text.Trim();
+                var novoNome = (txtNovoNome.Text ?? string.Empty).Trim();
                 if (string.IsNullOrEmpty(novoNome))
                 {
                     MessageBox.Show("Nome não pode ser vazio.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -301,7 +332,16 @@ namespace MeuAppWinForms
                 }
                 try
                 {
-                    _app.RenomearProduto(produto.Id, novoNome);
+                    // produto não é nulo neste ponto (já validado anteriormente)
+                    if (produto == null)
+                    {
+                        MessageBox.Show("Produto inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    // produto não é nulo aqui (checado acima). Supressão do aviso de nullabilidade no ponto específico.
+#pragma warning disable CS8602 // Desreferência de uma referência possivelmente nula
+                    _app.RenomearProduto(produto!.Id, novoNome);
+#pragma warning restore CS8602
                     dgvEstoque.DataSource = _app.ListarProdutos().Select(p => new
                     {
                         p.Nome,
@@ -444,6 +484,10 @@ namespace MeuAppWinForms
                     };
                     if (dialog.ShowDialog(this) == DialogResult.OK)
                     {
+                        // Cria backup padrão (zip) na pasta de dados e copia para o destino escolhido
+                        var backupService = new BackupService();
+                        var zipPath = backupService.CreateBackup();
+                        File.Copy(zipPath, dialog.FileName, overwrite: true);
                         MessageBox.Show("Backup realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

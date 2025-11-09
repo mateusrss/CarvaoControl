@@ -33,6 +33,19 @@ static class Program
 
         ApplicationConfiguration.Initialize();
 
+        // Splash screen rápido
+        try
+        {
+            using (var splash = new SplashForm())
+            {
+                splash.Show();
+                // processa mensagens enquanto inicializa serviços pesados
+                Application.DoEvents();
+                Thread.Sleep(600); // pequeno delay para percepção visual
+            }
+        }
+        catch { }
+
         // Inicializa serviços
         var estoqueService = new EstoqueService();
         var vendaService = new VendaService(estoqueService);
@@ -88,8 +101,8 @@ static class Program
         var loggingService = new LoggingService();
         var estoqueAppService = new EstoqueAppService(estoqueService, loggingService, persistence);
 
-        // Executa formulário principal
-        Application.Run(new Form1(vendaAppService, authService, estoqueAppService));
+    // Executa formulário principal
+    Application.Run(new Form1(vendaAppService, authService, estoqueAppService));
 
         // Libera mutex ao fechar
         _instanceMutex?.ReleaseMutex();
