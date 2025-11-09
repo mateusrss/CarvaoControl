@@ -11,6 +11,14 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Company>Chama Distribuidora</Company>
+    <Product>Carvão Control</Product>
+    <Version>1.0.0</Version>
+    <AssemblyName>CarvaoControl</AssemblyName>
+    <Description>Sistema de Controle de Vendas e Estoque para Distribuidora de Carvão</Description>
+    <Copyright>© 2025 Chama Distribuidora. Todos os direitos reservados.</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
 </Project>
