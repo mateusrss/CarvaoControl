@@ -1,0 +1,10 @@
+[
+  {
+    "Id": 1,
+    "ProdutoId": 1,
+    "Quantidade": 1,
+    "ValorTotal": 20.0,
+    "Pagamento": "Debito",
+    "Data": "2025-11-09T14:42:52.8445929-03:00"
+  }
+]

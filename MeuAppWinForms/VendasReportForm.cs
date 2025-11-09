@@ -39,20 +39,49 @@ namespace MeuAppWinForms
         private void InitializeComponent()
         {
             this.Text = $"Relatório de {ReportType}";
-            this.Size = new Size(900, 600);
+            this.Size = new Size(1000, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.WhiteSmoke;
+
+            // Logo
+            var logo = new PictureBox
+            {
+                Size = new Size(100, 60),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Location = new Point(20, 10)
+            };
+            try
+            {
+                var logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CarvaoChama.png");
+                if (File.Exists(logoPath))
+                {
+                    logo.Image = Image.FromFile(logoPath);
+                }
+            }
+            catch { }
+
+            // Título
+            var lblTitle = new Label
+            {
+                Text = $"Relatório de {ReportType}",
+                Font = new Font("Segoe UI", 20, FontStyle.Bold),
+                ForeColor = Color.FromArgb(51, 122, 183),
+                AutoSize = true,
+                Location = new Point(130, 20)
+            };
 
             // Data inicial
             var lblInicio = new Label
             {
                 Text = "Data Inicial:",
-                Location = new Point(12, 15),
-                AutoSize = true
+                Location = new Point(50, 90),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9, FontStyle.Regular)
             };
 
             dtInicio = new DateTimePicker
             {
-                Location = new Point(82, 12),
+                Location = new Point(140, 85),
                 Size = new Size(180, 23),
                 Format = DateTimePickerFormat.Custom,
                 CustomFormat = "dd/MM/yyyy"
@@ -63,13 +92,14 @@ namespace MeuAppWinForms
             var lblFim = new Label
             {
                 Text = "Data Final:",
-                Location = new Point(212, 15),
-                AutoSize = true
+                Location = new Point(380, 90),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9, FontStyle.Regular)
             };
 
             dtFim = new DateTimePicker
             {
-                Location = new Point(272, 12),
+                Location = new Point(470, 85),
                 Size = new Size(180, 23),
                 Format = DateTimePickerFormat.Custom,
                 CustomFormat = "dd/MM/yyyy"
@@ -80,8 +110,8 @@ namespace MeuAppWinForms
             btnFiltrar = new Button
             {
                 Text = "Filtrar",
-                Location = new Point(422, 11),
-                Size = new Size(80, 25),
+                Location = new Point(650, 83),
+                Size = new Size(80, 28),
                 BackColor = Color.FromArgb(51, 122, 183),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
@@ -91,8 +121,8 @@ namespace MeuAppWinForms
             btnExportarCsv = new Button
             {
                 Text = "Exportar CSV",
-                Location = new Point(507, 11),
-                Size = new Size(120, 25),
+                Location = new Point(750, 83),
+                Size = new Size(100, 28),
                 BackColor = Color.FromArgb(92, 184, 92),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
@@ -102,8 +132,8 @@ namespace MeuAppWinForms
             btnExportarPdf = new Button
             {
                 Text = "Exportar PDF",
-                Location = new Point(637, 11),
-                Size = new Size(120, 25),
+                Location = new Point(870, 83),
+                Size = new Size(100, 28),
                 BackColor = Color.FromArgb(217, 83, 79),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
@@ -113,8 +143,8 @@ namespace MeuAppWinForms
             // Grid
             dgvVendas = new DataGridView
             {
-                Location = new Point(12, 45),
-                Size = new Size(860, 470),
+                Location = new Point(50, 130),
+                Size = new Size(900, 480),
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
@@ -123,7 +153,7 @@ namespace MeuAppWinForms
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 RowHeadersVisible = false,
                 BackgroundColor = Color.White,
-                BorderStyle = BorderStyle.None,
+                BorderStyle = BorderStyle.Fixed3D,
                 GridColor = Color.FromArgb(200, 200, 200)
             };
 
@@ -140,6 +170,14 @@ namespace MeuAppWinForms
             dgvVendas.Columns.Add("ValorTotal", "Valor Total");
             dgvVendas.Columns.Add("Pagamento", "Forma de Pagamento");
 
+            // Definir larguras mínimas para evitar truncamento
+            dgvVendas.Columns[0].MinimumWidth = 120; // Data
+            dgvVendas.Columns[1].MinimumWidth = 150; // Produto
+            dgvVendas.Columns[2].MinimumWidth = 80;  // Quantidade
+            dgvVendas.Columns[3].MinimumWidth = 100; // Valor Unitário
+            dgvVendas.Columns[4].MinimumWidth = 100; // Valor Total
+            dgvVendas.Columns[5].MinimumWidth = 120; // Pagamento
+
             // Ajustes de alinhamento/formatacao
             dgvVendas.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft; // Data
             dgvVendas.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Quantidade
@@ -150,7 +188,8 @@ namespace MeuAppWinForms
             statusStrip = new StatusStrip
             {
                 BackColor = Color.FromArgb(51, 122, 183),
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                Dock = DockStyle.Bottom
             };
 
             lblTotal = new ToolStripStatusLabel
@@ -162,6 +201,7 @@ namespace MeuAppWinForms
             // Add controls
             this.Controls.AddRange(new Control[]
             {
+                logo, lblTitle,
                 lblInicio, dtInicio,
                 lblFim, dtFim,
                 btnFiltrar,
@@ -172,7 +212,7 @@ namespace MeuAppWinForms
             });
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             try
             {
@@ -326,12 +366,12 @@ namespace MeuAppWinForms
                     if (ReportType == "Vendas")
                     {
                         headers = new[] { "Data", "Produto", "Quantidade", "Valor Unitário", "Valor Total", "Pagamento" };
-                        colWidths = new[] { 90.0, 220.0, 60.0, 80.0, 80.0, 90.0 };
+                        colWidths = new[] { 100.0, 250.0, 70.0, 90.0, 90.0, 100.0 };
                     }
                     else
                     {
                         headers = new[] { "-", "Produto", "Quantidade", "Valor Unitário", "Valor Total", "-" };
-                        colWidths = new[] { 90.0, 220.0, 60.0, 80.0, 80.0, 90.0 };
+                        colWidths = new[] { 100.0, 250.0, 70.0, 90.0, 90.0, 100.0 };
                     }
 
                     // Cabeçalho

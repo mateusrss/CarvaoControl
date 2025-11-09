@@ -82,27 +82,51 @@ namespace MeuAppWinForms
             // Status Strip
             statusStrip.Items.Add(new ToolStripStatusLabel("Pronto"));
 
-            // Painel Principal
+            // Painel Principal com layout responsivo
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.BackColor = Color.White;
             mainPanel.Padding = new Padding(20);
+
+            // TableLayoutPanel para layout responsivo
+            var tableLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 2,
+                RowCount = 4,
+                Padding = new Padding(10)
+            };
+            tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 120)); // Título
+            tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80)); // Botão Vendas
+            tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80)); // Botão Estoque
+            tableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80)); // Botão Relatórios
 
             // Título
             lblTitle.Text = "Sistema de Controle de Vendas de Carvão";
             lblTitle.Font = new Font("Segoe UI", 24, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(64, 64, 64);
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(50, 50);
+            lblTitle.Anchor = AnchorStyles.None;
+            tableLayout.Controls.Add(lblTitle, 0, 0);
+            tableLayout.SetColumnSpan(lblTitle, 2);
 
-            // Botões
-            ConfigureButton(btnVendas, "Registrar Venda", new Point(50, 150));
-            ConfigureButton(btnEstoque, "Controle de Estoque", new Point(50, 220));
-            ConfigureButton(btnRelatorios, "Relatórios de Vendas", new Point(50, 290));
+            // Botões com tamanho responsivo
+            ConfigureButton(btnVendas, "Registrar Venda");
+            tableLayout.Controls.Add(btnVendas, 0, 1);
 
-            // Picture Box para logo
-            pictureBox.Size = new Size(300, 200);
-            pictureBox.Location = new Point(450, 100);
+            ConfigureButton(btnEstoque, "Controle de Estoque");
+            tableLayout.Controls.Add(btnEstoque, 0, 2);
+
+            ConfigureButton(btnRelatorios, "Relatórios de Vendas");
+            tableLayout.Controls.Add(btnRelatorios, 0, 3);
+
+            // Picture Box para logo na coluna direita
+            pictureBox.Size = new Size(200, 200);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.Anchor = AnchorStyles.None;
+            tableLayout.Controls.Add(pictureBox, 1, 1);
+            tableLayout.SetRowSpan(pictureBox, 3);
 
             // Label para o texto do logo
             var lblLogo = new Label
@@ -110,10 +134,11 @@ namespace MeuAppWinForms
                 Text = "CARVÃO CHAMA",
                 Font = new Font("Segoe UI", 24, FontStyle.Bold),
                 ForeColor = Color.FromArgb(51, 122, 183),
-                AutoSize = true
+                AutoSize = true,
+                Anchor = AnchorStyles.None
             };
-            lblLogo.Location = new Point(pictureBox.Left + (pictureBox.Width - lblLogo.PreferredWidth) / 2, 
-                                       pictureBox.Bottom + 10);
+            tableLayout.Controls.Add(lblLogo, 1, 1);
+            tableLayout.SetRowSpan(lblLogo, 3);
 
             try
             {
@@ -128,14 +153,7 @@ namespace MeuAppWinForms
                 // ignorado
             }
 
-            mainPanel.Controls.Add(lblLogo);
-
-            // Adiciona controles ao painel
-            mainPanel.Controls.Add(lblTitle);
-            mainPanel.Controls.Add(btnVendas);
-            mainPanel.Controls.Add(btnEstoque);
-            mainPanel.Controls.Add(btnRelatorios);
-            mainPanel.Controls.Add(pictureBox);
+            mainPanel.Controls.Add(tableLayout);
 
             // Adiciona controles ao form
             this.Controls.Add(menuStrip);
@@ -147,16 +165,17 @@ namespace MeuAppWinForms
             statusStrip.Dock = DockStyle.Bottom;
         }
 
-        private void ConfigureButton(Button btn, string text, Point location)
+        private void ConfigureButton(Button btn, string text)
         {
             btn.Text = text;
-            btn.Size = new Size(300, 50);
-            btn.Location = location;
+            btn.Size = new Size(250, 50);
             btn.Font = new Font("Segoe UI", 12);
             btn.FlatStyle = FlatStyle.Flat;
             btn.BackColor = Color.FromArgb(51, 122, 183);
             btn.ForeColor = Color.White;
             btn.Cursor = Cursors.Hand;
+            btn.Anchor = AnchorStyles.None;
+            btn.Margin = new Padding(10);
 
             btn.MouseEnter += (s, e) => {
                 btn.BackColor = Color.FromArgb(40, 96, 144);
@@ -217,6 +236,7 @@ namespace MeuAppWinForms
         {
             if (_app == null || _estoqueService == null) return;
             using var form = new VendasReportForm(_app) { ReportType = "Estoque" };
+            form.LoadData(); // Recarregar dados com o tipo correto
             form.ShowDialog(this);
         }
 
@@ -361,14 +381,6 @@ namespace MeuAppWinForms
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            
-            // Desenha uma linha decorativa abaixo do título
-            if (lblTitle != null && mainPanel != null)
-            {
-                using var pen = new Pen(Color.FromArgb(200, 200, 200), 2);
-                var y = lblTitle.Bottom + 10;
-                e.Graphics.DrawLine(pen, 50, y, mainPanel.Width - 50, y);
-            }
         }
     }
 }
