@@ -41,14 +41,14 @@ namespace MeuAppWinForms
             this.lblNome.Text = "Nome:";
             this.lblNome.Location = new System.Drawing.Point(12, 15);
             this.lblNome.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtNome.Location = new System.Drawing.Point(80, 12);
+            this.txtNome.Location = new System.Drawing.Point(120, 12);
             this.txtNome.Width = 320;
             this.txtNome.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 
             this.lblPreco.Text = "Preço:";
             this.lblPreco.Location = new System.Drawing.Point(12, 50);
             this.lblPreco.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.nudPreco.Location = new System.Drawing.Point(80, 48);
+            this.nudPreco.Location = new System.Drawing.Point(120, 48);
             this.nudPreco.DecimalPlaces = 2;
             this.nudPreco.Maximum = 100000;
             this.nudPreco.Minimum = 0.01M;
@@ -57,7 +57,7 @@ namespace MeuAppWinForms
             this.lblQuantidade.Text = "Quantidade:";
             this.lblQuantidade.Location = new System.Drawing.Point(12, 85);
             this.lblQuantidade.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.nudQuantidade.Location = new System.Drawing.Point(80, 83);
+            this.nudQuantidade.Location = new System.Drawing.Point(120, 83);
             this.nudQuantidade.Minimum = 1;
             this.nudQuantidade.Maximum = 100000;
             this.nudQuantidade.Value = 1;

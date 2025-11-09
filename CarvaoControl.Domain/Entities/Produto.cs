@@ -55,6 +55,15 @@ namespace CarvaoControl.Domain.Entities
             Preco = novoPreco;
         }
 
+        // Permite renomear o produto
+        public void Renomear(string novoNome)
+        {
+            if (string.IsNullOrWhiteSpace(novoNome))
+                throw new DomainException("O nome do produto é obrigatório.");
+
+            Nome = novoNome;
+        }
+
         // Define o Id depois (ex: quando for salvo em banco)
         public void DefinirId(int id)
         {

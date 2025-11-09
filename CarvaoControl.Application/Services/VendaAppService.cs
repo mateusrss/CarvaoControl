@@ -62,6 +62,18 @@ namespace CarvaoControl.Application.Services
             try { _persistence?.SaveProdutos(_estoqueService.ListarProdutos()); } catch { }
         }
 
+        public void RenomearProduto(int produtoId, string novoNome)
+        {
+            _estoqueService.RenomearProduto(produtoId, novoNome);
+            try { _persistence?.SaveProdutos(_estoqueService.ListarProdutos()); } catch { }
+        }
+
+        public void LimparProdutos()
+        {
+            _estoqueService.LimparProdutos();
+            try { _persistence?.SaveProdutos(_estoqueService.ListarProdutos()); } catch { }
+        }
+
         // Returns total items in stock (sum of Quantidade)
         public int ObterEstoqueTotal()
         {

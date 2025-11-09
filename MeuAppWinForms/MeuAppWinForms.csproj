@@ -11,7 +11,9 @@
 
   <ItemGroup>
     <None Remove="Resources\CarvaoChama.png" />
-    <EmbeddedResource Include="Resources\CarvaoChama.png" />
+    <Content Include="Resources\CarvaoChama.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <PropertyGroup>

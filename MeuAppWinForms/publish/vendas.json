@@ -5,6 +5,14 @@
     "Quantidade": 1,
     "ValorTotal": 20.0,
     "Pagamento": "Debito",
-    "Data": "2025-11-09T14:42:52.8445929-03:00"
+    "Data": "2025-11-09T15:04:28.6845443-03:00"
+  },
+  {
+    "Id": 2,
+    "ProdutoId": 1,
+    "Quantidade": 1,
+    "ValorTotal": 20.0,
+    "Pagamento": "Debito",
+    "Data": "2025-11-09T15:04:32.4978048-03:00"
   }
 ]

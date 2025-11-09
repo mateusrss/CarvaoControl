@@ -41,7 +41,7 @@ namespace MeuAppWinForms
             this.Text = $"Relatório de {ReportType}";
             this.Size = new Size(1000, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.WhiteSmoke;
+            this.BackColor = Color.FromArgb(248, 250, 252); // Fundo azul muito claro
 
             // Logo
             var logo = new PictureBox
@@ -65,7 +65,7 @@ namespace MeuAppWinForms
             {
                 Text = $"Relatório de {ReportType}",
                 Font = new Font("Segoe UI", 20, FontStyle.Bold),
-                ForeColor = Color.FromArgb(51, 122, 183),
+                ForeColor = Color.FromArgb(23, 43, 77), // Azul escuro elegante
                 AutoSize = true,
                 Location = new Point(130, 20)
             };
@@ -112,7 +112,7 @@ namespace MeuAppWinForms
                 Text = "Filtrar",
                 Location = new Point(650, 83),
                 Size = new Size(80, 28),
-                BackColor = Color.FromArgb(51, 122, 183),
+                BackColor = Color.FromArgb(63, 81, 181), // Azul Material Design 3
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
@@ -123,7 +123,7 @@ namespace MeuAppWinForms
                 Text = "Exportar CSV",
                 Location = new Point(750, 83),
                 Size = new Size(100, 28),
-                BackColor = Color.FromArgb(92, 184, 92),
+                BackColor = Color.FromArgb(76, 175, 80), // Verde sucesso
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
@@ -134,7 +134,7 @@ namespace MeuAppWinForms
                 Text = "Exportar PDF",
                 Location = new Point(870, 83),
                 Size = new Size(100, 28),
-                BackColor = Color.FromArgb(217, 83, 79),
+                BackColor = Color.FromArgb(244, 67, 54), // Vermelho alerta
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
@@ -154,12 +154,12 @@ namespace MeuAppWinForms
                 RowHeadersVisible = false,
                 BackgroundColor = Color.White,
                 BorderStyle = BorderStyle.Fixed3D,
-                GridColor = Color.FromArgb(200, 200, 200)
+                GridColor = Color.FromArgb(224, 224, 224) // Cinza claro
             };
 
-            dgvVendas.DefaultCellStyle.SelectionBackColor = Color.FromArgb(51, 122, 183);
+            dgvVendas.DefaultCellStyle.SelectionBackColor = Color.FromArgb(63, 81, 181);
             dgvVendas.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvVendas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(51, 122, 183);
+            dgvVendas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(63, 81, 181);
             dgvVendas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgvVendas.EnableHeadersVisualStyles = false;
 
@@ -187,7 +187,7 @@ namespace MeuAppWinForms
             // Status strip
             statusStrip = new StatusStrip
             {
-                BackColor = Color.FromArgb(51, 122, 183),
+                BackColor = Color.FromArgb(63, 81, 181),
                 ForeColor = Color.White,
                 Dock = DockStyle.Bottom
             };

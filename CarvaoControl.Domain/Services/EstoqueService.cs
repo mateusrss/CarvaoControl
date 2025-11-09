@@ -32,5 +32,18 @@ namespace CarvaoControl.Domain.Services
 
             produto.AtualizarPreco(novoPreco);
         }
+
+        public void RenomearProduto(int produtoId, string novoNome)
+        {
+            var produto = _produtos.FirstOrDefault(p => p.Id == produtoId)
+                ?? throw new DomainException("Produto não encontrado.");
+
+            produto.Renomear(novoNome);
+        }
+
+        public void LimparProdutos()
+        {
+            _produtos.Clear();
+        }
     }
 }
