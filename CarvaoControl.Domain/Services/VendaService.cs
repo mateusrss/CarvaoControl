@@ -40,5 +40,12 @@ namespace CarvaoControl.Domain.Services
         {
             return _vendas.Where(v => v.Data.Date == dia.Date);
         }
+
+        // Permite adicionar vendas existentes (por exemplo ao carregar de persistência)
+        public void AdicionarVendaExistente(Venda venda)
+        {
+            if (venda == null) throw new ArgumentNullException(nameof(venda));
+            _vendas.Add(venda);
+        }
     }
 }

@@ -4,10 +4,10 @@ namespace CarvaoControl.Domain.Interfaces
 {
     public interface IProdutoRepository
     {
-        Produto? ObterPorId(int id);
-        IEnumerable<Produto> ObterTodos();
-        void Adicionar(Produto produto);
-        void Atualizar(Produto produto);
-        void Remover(int id);
+        Produto? GetById(int id);
+        IEnumerable<Produto> GetAll();
+        void Add(Produto produto);
+        void Update(Produto produto);
+        void UpdateQuantidade(int id, int novaQuantidade);
     }
 }

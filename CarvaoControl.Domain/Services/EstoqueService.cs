@@ -24,5 +24,13 @@ namespace CarvaoControl.Domain.Services
         }
 
         public IEnumerable<Produto> ListarProdutos() => _produtos;
+
+        public void AtualizarPreco(int produtoId, decimal novoPreco)
+        {
+            var produto = _produtos.FirstOrDefault(p => p.Id == produtoId)
+                ?? throw new DomainException("Produto não encontrado.");
+
+            produto.AtualizarPreco(novoPreco);
+        }
     }
 }

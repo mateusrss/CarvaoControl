@@ -1,8 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\CarvaoControl.Application\CarvaoControl.Application.csproj" />
     <ProjectReference Include="..\CarvaoControl.Domain\CarvaoControl.Domain.csproj" />
-    <ProjectReference Include="..\CarvaoControl.Infrastructure\CarvaoControl.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
   </ItemGroup>
 
   <PropertyGroup>

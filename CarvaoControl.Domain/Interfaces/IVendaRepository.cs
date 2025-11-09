@@ -4,9 +4,8 @@ namespace CarvaoControl.Domain.Interfaces
 {
     public interface IVendaRepository
     {
-        Venda? ObterPorId(int id);
-        IEnumerable<Venda> ObterTods();
-        void Adcionar(Venda venda);
-        void Remover(int id);
+        IEnumerable<Venda> GetAll();
+        void Add(Venda venda);
+        IEnumerable<Venda> GetByDateRange(DateTime start, DateTime end);
     }
 }
