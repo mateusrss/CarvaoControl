@@ -78,14 +78,14 @@ static class Program
             {
                 try
                 {
-                    var produto = estoqueService.ListarProdutos().FirstOrDefault(p => p.Id == vd.ProdutoId);
-                    decimal unitPrice = 0m;
-                    if (produto != null && vd.Quantidade > 0)
-                        unitPrice = Math.Round(vd.ValorTotal / vd.Quantidade, 2);
-
-                    var venda = new Venda(vd.ProdutoId, vd.Quantidade, unitPrice, vd.Pagamento);
-                    venda.DefinirId(vd.Id);
-
+                    // Reidrata a venda preservando a data e o valor total originais
+                    var venda = new Venda(
+                        id: vd.Id,
+                        produtoId: vd.ProdutoId,
+                        quantidade: vd.Quantidade,
+                        valorTotal: vd.ValorTotal,
+                        pagamento: vd.Pagamento,
+                        data: vd.Data);
                     vendaService.AdicionarVendaExistente(venda);
                 }
                 catch

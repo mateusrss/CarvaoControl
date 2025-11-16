@@ -25,9 +25,11 @@ namespace MeuAppWinForms
         {
             lblProduto.Text = $"Produto: {_produto.Nome}";
             lblEstoqueAtual.Text = $"Estoque Atual: {_produto.Quantidade}";
-            numQuantidade.Value = _produto.Quantidade;
+            // Ajusta limites antes de definir o valor para evitar exceção
             numQuantidade.Minimum = 0;
-            numQuantidade.Maximum = 99999;
+            // Garante que o máximo comporta a quantidade atual (evita erro ao abrir com estoque > 100)
+            numQuantidade.Maximum = Math.Max(999999, _produto.Quantidade);
+            numQuantidade.Value = _produto.Quantidade;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)

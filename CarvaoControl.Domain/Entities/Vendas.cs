@@ -28,6 +28,23 @@ namespace CarvaoControl.Domain.Entities
             Data = DateTime.Now;
         }
 
+        // Construtor para reidratação a partir da persistência (mantém Data e ValorTotal)
+        public Venda(int id, int produtoId, int quantidade, decimal valorTotal, TipoPagamento pagamento, DateTime data)
+        {
+            if (quantidade <= 0)
+                throw new DomainException("A quantidade deve ser maior que zero.");
+
+            if (valorTotal <= 0)
+                throw new DomainException("O valor total deve ser maior que zero.");
+
+            Id = id;
+            ProdutoId = produtoId;
+            Quantidade = quantidade;
+            ValorTotal = valorTotal;
+            Pagamento = pagamento;
+            Data = data;
+        }
+
         // Método para definir ID apenas internamente
         public void DefinirId(int id)
         {
