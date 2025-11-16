@@ -1,16 +1,23 @@
-# Build Folders
-bin/
-obj/
+# Pastas de build
+**/bin/
+**/obj/
 publish/
+publish-single/
 
-# Executáveis e pacotes
+# Binários
 *.exe
 *.dll
-*.zip
+*.pdb
 *.bak
 
-# Usuários, IDE, VS
+# Permitir o ZIP de release
+# (não ignore zips para permitir commit do pacote de execução)
+# Se quiser ignorar outros zips, use a regra abaixo com exceção:
+# *.zip
+# !release/CarvaoControl_SingleFile.zip
+
+# Usuário/IDE
 *.user
 *.suo
-*.vs/
+.vs/
 .vscode/
