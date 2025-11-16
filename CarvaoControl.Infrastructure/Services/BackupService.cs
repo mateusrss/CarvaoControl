@@ -29,8 +29,6 @@ namespace CarvaoControl.Infrastructure.Services
 
                 using (var zip = ZipFile.Open(backupFile, ZipArchiveMode.Create))
                 {
-                    // Atualmente persistimos em JSON — não incluímos carvao.db no backup.
-
                     // Backup das configurações
                     var configFile = Path.Combine(_dataPath, "config.json");
                     if (File.Exists(configFile))
@@ -71,16 +69,8 @@ namespace CarvaoControl.Infrastructure.Services
                         var targetPath = Path.Combine(_dataPath, entry.FullName);
                         Directory.CreateDirectory(Path.GetDirectoryName(targetPath)!);
                         
-                        // Se for outro arquivo, restaura normalmente
-                        if (entry.Name == "carvao.db")
-                        {
-                            // Ignora carvao.db (não utilizado) — evita restaurar DB SQLite não gerenciado
-                            continue;
-                        }
-                        else
-                        {
-                            entry.ExtractToFile(targetPath, true);
-                        }
+                        // Restaura normalmente
+                        entry.ExtractToFile(targetPath, true);
                     }
                 }
 
