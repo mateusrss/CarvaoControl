@@ -1,15 +1,23 @@
-CarvaoControl - Versão Single-File (compacta)
+Conteúdo desta pasta
 
-O que há nesta pasta:
-- Um executável único: CarvaoControl.exe (self-contained, single-file).
+CarvaoControl.exe
+Executável único, empacotado no modo self-contained e single-file.
+Não depende de instalação do .NET no computador.
 
-Como executar:
-1. Baixe o arquivo `CarvaoControl.exe` desta pasta `release`.
-2. Dê dois cliques para abrir. Não é necessário instalar .NET.
+Como executar
 
-Observações:
-- Pode existir uma subpasta `Resources/` com ícones/recursos. Normalmente você só precisa do `CarvaoControl.exe`.
-- Em alguns ambientes, o aplicativo pode extrair arquivos temporários ao iniciar (comportamento esperado do modo single-file).
+Baixe o arquivo .zip desta pasta release.
 
-Suporte:
-email: mateusparaisolog@gmail.com
+Extraia o conteúdo.
+
+Execute o arquivo CarvaoControl.exe com dois cliques.
+
+Observações
+
+Pode haver uma subpasta Resources/ contendo ícones e recursos visuais utilizados pelo sistema. Na maioria dos casos, apenas o executável principal é necessário.
+
+Em algumas máquinas, o modo single-file pode extrair arquivos temporários na primeira execução. Isso é comportamento normal dessa configuração do .NET.
+
+Suporte
+
+E-mail: mateusparaisolog@gmail.com
